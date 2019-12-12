@@ -17,6 +17,9 @@ defmodule CloudsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    resources "/users", UserController
+    get "/users/:id/inbox", UserController, :inbox
   end
 
   # Other scopes may use custom stacks.
