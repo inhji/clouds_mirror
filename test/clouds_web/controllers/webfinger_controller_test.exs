@@ -7,9 +7,6 @@ defmodule CloudsWeb.WebfingerControllerTest do
     json = json_response(conn, 200)
     assert json["subject"]
     assert json["links"]
-
-    # json = json_response(conn, 400)
-    # assert json["error"]
   end
 
   test "GET /.well-known/webfinger?resource=acct:foo@localhost:4002", %{conn: conn} do

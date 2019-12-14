@@ -11,7 +11,7 @@ defmodule CloudsWeb.WebfingerController do
     with true <- Regex.match?(regex, resource),
          username <- extract_username(resource),
          true <- Users.user_exists?(username),
-         user <- Users.get_user_by_username!(username) do
+         user <- Users.get_user() do
       conn
       |> json(%{
         "subject" => resource,
@@ -19,7 +19,7 @@ defmodule CloudsWeb.WebfingerController do
           %{
             "rel" => "self",
             "type" => "application/activity+json",
-            "href" => User.actor_url(user)
+            "href" => User.actor_url()
           }
         ]
       })

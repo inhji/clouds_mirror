@@ -40,10 +40,16 @@ defmodule CloudsWeb.ConnCase do
     if tags[:with_user] do
       user =
         Clouds.Users.create_user(%{
+          email: "#{tags[:with_user]}@example.com",
           name: tags[:with_user],
           username: tags[:with_user],
-          summary: "hey!"
+          summary: "hey!",
+          password: "12345678",
+          confirm_password: "12345678",
+          password_hash: "bar"
         })
+
+      IO.inspect(user)
 
       {:ok, conn: conn, user: user}
     else
