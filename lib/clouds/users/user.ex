@@ -1,5 +1,7 @@
 defmodule Clouds.Users.User do
-  import Ecto.Changeset
+  import Ecto.Changeset,
+    only: [cast: 3, validate_required: 2, unique_constraint: 2, get_field: 2, put_change: 3]
+
   use Ecto.Schema
   use Pow.Ecto.Schema
 
@@ -29,7 +31,7 @@ defmodule Clouds.Users.User do
     |> pow_extension_changeset(attrs)
     |> cast(attrs, [:name, :username, :summary])
     |> maybe_generate_pub_key_pair
-    |> validate_required([:name, :username, :pub_key, :priv_key, :summary])
+    |> validate_required([:name, :username, :summary, :pub_key, :priv_key])
     |> unique_constraint(:username)
   end
 
@@ -48,7 +50,7 @@ defmodule Clouds.Users.User do
     end
   end
 
-  def to_actor(%Clouds.Users.User{} = user) do
+  def to_json(%Clouds.Users.User{} = user) do
     %{
       "@context" => [
         "https://www.w3.org/ns/activitystreams",
@@ -57,24 +59,31 @@ defmodule Clouds.Users.User do
       "id" => "#{Clouds.url()}",
       "type" => "Person",
       "preferredUsername" => user.username,
-      "inbox" => inbox_url(user),
+      "name" => user.name,
+      "summary" => user.summary,
+      "inbox" => inbox_url(),
+      "outbox" => outbox_url(),
       "publicKey" => %{
-        "id" => pubkey_url(user),
-        "owner" => actor_url(user),
+        "id" => pubkey_url(),
+        "owner" => actor_url(),
         "publicKeyPem" => user.pub_key
       }
     }
   end
 
-  def actor_url(%Clouds.Users.User{} = user) do
-    Routes.user_url(CloudsWeb.Endpoint, :show, user)
+  def actor_url() do
+    Routes.user_url(CloudsWeb.Endpoint, :actor)
   end
 
-  def inbox_url(%Clouds.Users.User{} = user) do
-    Routes.user_url(CloudsWeb.Endpoint, :inbox, user)
+  def inbox_url() do
+    Routes.user_url(CloudsWeb.Endpoint, :inbox)
   end
 
-  def pubkey_url(%Clouds.Users.User{} = user) do
-    actor_url(user) <> "#main-key"
+  def outbox_url() do
+    Routes.user_url(CloudsWeb.Endpoint, :outbox)
+  end
+
+  def pubkey_url() do
+    actor_url() <> "#main-key"
   end
 end

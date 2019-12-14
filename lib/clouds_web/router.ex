@@ -28,9 +28,9 @@ defmodule CloudsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-
-    resources "/users", UserController
-    get "/users/:id/inbox", UserController, :inbox
+    get "/actor", UserController, :actor
+    get "/inbox", UserController, :inbox
+    get "/outbox", UserController, :outbox
   end
 
   scope "/.well-known", CloudsWeb do
