@@ -35,4 +35,20 @@ defmodule Clouds do
     |> to_string()
     |> String.trim_trailing("/")
   end
+
+  @doc """
+  Returns the domain, including port of the site.
+
+  # Examples
+
+    iex> Clouds.domain()
+    "localhost:4002"
+
+  """
+  def domain() do
+    Endpoint
+    |> Routes.url()
+    |> URI.parse()
+    |> Map.get(:authority)
+  end
 end
