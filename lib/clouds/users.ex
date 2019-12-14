@@ -16,11 +16,28 @@ defmodule Clouds.Users do
   end
 
   @doc """
+  Checks if a user exists
+  """
+  def user_exists?(username) do
+    case get_user_by_username(username) do
+      nil -> false
+      _ -> true
+    end
+  end
+
+  @doc """
   Gets a single user by username.
 
   Raises `Ecto.NoResultsError` if the User does not exist.
   """
   def get_user_by_username!(username), do: Repo.get_by!(User, username: username)
+
+  @doc """
+  Gets a single user by username.
+
+  Returns nil if the User does not exists
+  """
+  def get_user_by_username(username), do: Repo.get_by(User, username: username)
 
   @doc """
   Gets a single user.

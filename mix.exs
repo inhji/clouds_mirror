@@ -43,6 +43,7 @@ defmodule Clouds.MixProject do
       {:phoenix_pubsub, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
+      {:pow, "~> 1.0.15"},
       {:rsa_ex, "~> 0.4"}
     ]
   end

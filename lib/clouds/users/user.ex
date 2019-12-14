@@ -1,6 +1,11 @@
 defmodule Clouds.Users.User do
-  use Ecto.Schema
   import Ecto.Changeset
+  use Ecto.Schema
+  use Pow.Ecto.Schema
+
+  use Pow.Extension.Ecto.Schema,
+    extensions: [PowPersistentSession]
+
   alias CloudsWeb.Router.Helpers, as: Routes
 
   schema "users" do
@@ -12,12 +17,16 @@ defmodule Clouds.Users.User do
     field :pub_key, :string
     field :priv_key, :string
 
+    pow_user_fields()
+
     timestamps()
   end
 
   @doc false
   def changeset(user, attrs) do
     user
+    |> pow_changeset(attrs)
+    |> pow_extension_changeset(attrs)
     |> cast(attrs, [:name, :username, :summary])
     |> maybe_generate_pub_key_pair
     |> validate_required([:name, :username, :pub_key, :priv_key, :summary])

@@ -25,6 +25,13 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :clouds, :pow,
+  user: Clouds.Users.User,
+  repo: Clouds.Repo,
+  web_module: CloudsWeb,
+  extensions: [PowPersistentSession],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

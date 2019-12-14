@@ -42,5 +42,9 @@ defmodule CloudsWeb.Endpoint do
     key: "_clouds_key",
     signing_salt: "NURPJh1g"
 
+  plug Pow.Plug.Session, otp_app: :clouds
+
+  plug PowPersistentSession.Plug.Cookie
+
   plug CloudsWeb.Router
 end

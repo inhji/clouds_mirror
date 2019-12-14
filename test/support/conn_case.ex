@@ -35,6 +35,19 @@ defmodule CloudsWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Clouds.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    conn = Phoenix.ConnTest.build_conn()
+
+    if tags[:with_user] do
+      user =
+        Clouds.Users.create_user(%{
+          name: tags[:with_user],
+          username: tags[:with_user],
+          summary: "hey!"
+        })
+
+      {:ok, conn: conn, user: user}
+    else
+      {:ok, conn: conn, user: nil}
+    end
   end
 end
