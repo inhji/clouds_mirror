@@ -9,49 +9,21 @@ defmodule Clouds.Users do
   alias Clouds.Users.User
 
   @doc """
-  Returns the list of users.
+  Returns the user.
   """
-  def list_users do
-    Repo.all(User)
+  def get_user do
+    Repo.get(User, 1)
   end
 
   @doc """
-  Checks if a user exists
+  Checks if the user with `username` exists.
   """
   def user_exists?(username) do
-    case get_user_by_username(username) do
+    case get_user do
       nil -> false
-      _ -> true
+      user -> user.username == username
     end
   end
-
-  @doc """
-  Gets a single user by username.
-
-  Raises `Ecto.NoResultsError` if the User does not exist.
-  """
-  def get_user_by_username!(username), do: Repo.get_by!(User, username: username)
-
-  @doc """
-  Gets a single user by username.
-
-  Returns nil if the User does not exists
-  """
-  def get_user_by_username(username), do: Repo.get_by(User, username: username)
-
-  @doc """
-  Gets a single user.
-
-  Returns nil if the User does not exists
-  """
-  def get_user(id), do: Repo.get(User, id)
-
-  @doc """
-  Gets a single user.
-
-  Raises `Ecto.NoResultsError` if the User does not exist.
-  """
-  def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
   Creates a user.
