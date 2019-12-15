@@ -19,7 +19,7 @@ defmodule Clouds.Users do
   Checks if the user with `username` exists.
   """
   def user_exists?(username) do
-    case get_user do
+    case get_user() do
       nil -> false
       user -> user.username == username
     end

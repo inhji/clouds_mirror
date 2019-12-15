@@ -20,7 +20,7 @@ defmodule Clouds.MixProject do
   def application do
     [
       mod: {Clouds.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :tzdata]
     ]
   end
 
@@ -33,7 +33,9 @@ defmodule Clouds.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:earmark, "~> 1.4"},
       {:ecto_sql, "~> 3.1"},
+      {:fast_sanitize, "~> 0.1.6"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:phoenix, "~> 1.4.11"},
@@ -44,7 +46,9 @@ defmodule Clouds.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
       {:pow, "~> 1.0.15"},
-      {:rsa_ex, "~> 0.4"}
+      {:rsa_ex, "~> 0.4"},
+      {:timex, "~> 3.6"},
+      {:tzdata, "~> 1.0.1"}
     ]
   end
 

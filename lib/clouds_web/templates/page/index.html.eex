@@ -1,0 +1,1 @@
+<%= render_many @notes, CloudsWeb.PostView, "post.html", assigns %>

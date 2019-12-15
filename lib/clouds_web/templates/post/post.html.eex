@@ -1,0 +1,32 @@
+<article class="post id-<%= @post.id %>">
+  <div class="media">
+    <figure class="media-left">
+      <div class="image avatar is-64x64">
+        <img src="/images/me.png">
+      </div>
+    </figure>
+    <div class="media-content">
+      <div>
+        <strong><%= @current_user.name %> <span class="has-text-grey-light"><%= @current_user.username %>@<%= Clouds.domain() %></span></strong>
+      </div>
+
+      <div class="content">
+        <%= raw(@post.content_html) %>
+      </div>
+
+      <div class="meta">
+        <span>
+          <%= link "Object", to: Routes.object_path(@conn, :show, @post)  %>
+        </span>
+        <span>
+          <%= link "Activity", to: Routes.activity_path(@conn, :show, @post.activity)  %>
+        </span>
+      </div>
+    </div>
+    <div class="media-right">
+      <time datetime="<%= @post.inserted_at %>"><%= link Timex.from_now(@post.inserted_at), to: Routes.post_path(@conn, :show, @post), class: "has-text-grey-light"  %></time>
+    </div>
+  </div>
+
+  
+</article>

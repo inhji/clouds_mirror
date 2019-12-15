@@ -17,6 +17,11 @@ defmodule CloudsWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
   scope "/" do
     pipe_through :browser
 
@@ -31,6 +36,21 @@ defmodule CloudsWeb.Router do
     get "/actor", UserController, :actor
     get "/inbox", UserController, :inbox
     get "/outbox", UserController, :outbox
+
+    resources "/posts", PostController, only: [:show]
+  end
+
+  scope "/api", CloudsWeb do
+    pipe_through :api
+
+    resources "/objects", ObjectController, only: [:show]
+    resources "/activities", ActivityController, only: [:show]
+  end
+
+  scope "/admin", CloudsWeb do
+    pipe_through [:browser, :protected]
+
+    resources "/posts", PostController, only: [:new, :create]
   end
 
   scope "/.well-known", CloudsWeb do
