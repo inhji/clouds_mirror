@@ -5,6 +5,9 @@ defmodule CloudsWeb.UserController do
   alias Clouds.Users.User
 
   def actor(conn, params) do
+    user = Users.get_user()
+
+    json(conn, User.to_json(user))
   end
 
   def get_inbox(conn, params) do
@@ -15,8 +18,7 @@ defmodule CloudsWeb.UserController do
       Clouds.Objects.list_objects()
       |> Enum.map(&Clouds.Objects.Object.to_json/1)
 
-    conn
-    |> json(%{
+    json(conn, %{
       "@context" => "https://www.w3.org/ns/activitystreams",
       "summary" => "Outbox",
       "type" => "OrderedCollection",

@@ -76,11 +76,11 @@ defmodule Clouds.Users.User do
   end
 
   def inbox_url() do
-    Routes.user_url(CloudsWeb.Endpoint, :inbox)
+    Routes.user_url(CloudsWeb.Endpoint, :get_inbox)
   end
 
   def outbox_url() do
-    Routes.user_url(CloudsWeb.Endpoint, :outbox)
+    Routes.user_url(CloudsWeb.Endpoint, :get_outbox)
   end
 
   def pubkey_url() do
