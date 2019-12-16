@@ -11,6 +11,7 @@ defmodule CloudsWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_owner
   end
 
   pipeline :api do
@@ -20,6 +21,13 @@ defmodule CloudsWeb.Router do
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
+  def put_owner(conn, _params) do
+    user = Clouds.Users.get_user()
+
+    conn
+    |> assign(:owner, user)
   end
 
   scope "/" do

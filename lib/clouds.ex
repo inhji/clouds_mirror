@@ -51,4 +51,12 @@ defmodule Clouds do
     |> URI.parse()
     |> Map.get(:authority)
   end
+
+  @doc """
+  Returns the full username of the instances owner
+  """
+  def username() do
+    user = Clouds.Users.get_user()
+    "@#{user.username}@#{domain()}"
+  end
 end

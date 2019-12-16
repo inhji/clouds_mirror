@@ -1,0 +1,6 @@
+<h1 class="title"><%= @owner.name %></h1>
+<h2 class="subtitle"><%= Clouds.username() %></h2>
+
+<p class="content">
+  <%= @owner.summary %>
+</p>

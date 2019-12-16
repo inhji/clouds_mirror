@@ -7,7 +7,7 @@
     </figure>
     <div class="media-content">
       <div>
-        <strong><%= @current_user.name %> <span class="has-text-grey-light"><%= @current_user.username %>@<%= Clouds.domain() %></span></strong>
+        <strong><%= @owner.name %> <span class="has-text-grey-light"><%= Clouds.username %></span></strong>
       </div>
 
       <div class="content">
