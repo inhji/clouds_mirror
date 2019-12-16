@@ -1,5 +1,7 @@
 # Clouds
 
+![Screenshot](clouds-screenshot.png)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
