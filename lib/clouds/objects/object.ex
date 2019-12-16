@@ -8,8 +8,8 @@ defmodule Clouds.Objects.Object do
     field :content_html, :string
     field :content_sanitized, :string
 
-    field :attributedTo, :string
-    field :inReplyTo, :string
+    field :attributed_to, :string
+    field :in_reply_to, :string
     field :to, {:array, :string}
     field :type, :string
 
@@ -26,14 +26,14 @@ defmodule Clouds.Objects.Object do
       :content_html,
       :content_sanitized,
       :type,
-      :inReplyTo,
-      :attributedTo,
+      :in_reply_to,
+      :attributed_to,
       :to,
       :activity_id
     ])
     |> maybe_render_markdown()
     |> maybe_sanitize_html()
-    |> validate_required([:content, :content_html, :content_sanitized, :type, :attributedTo, :to])
+    |> validate_required([:content, :content_html, :content_sanitized, :type, :attributed_to, :to])
     |> validate_inclusion(:type, ["Note"])
   end
 
@@ -78,8 +78,9 @@ defmodule Clouds.Objects.Object do
       "id" => id(object),
       "type" => object.type,
       "to" => object.to,
-      "attributedTo" => Clouds.Users.User.actor_url(),
+      "attributedTo" => object.attributed_to,
       "published" => object.inserted_at,
+      "inReplyTo" => object.in_reply_to,
       "content" => object.content_html,
       "source" => %{
         "content" => object.content,

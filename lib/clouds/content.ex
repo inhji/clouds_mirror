@@ -28,7 +28,7 @@ defmodule Clouds.Content do
 
       result =
         Clouds.Objects.create_object(%{
-          attributedTo: User.actor_url(),
+          attributed_to: User.actor_url(),
           type: "Note",
           content: content_html,
           to: receipients,

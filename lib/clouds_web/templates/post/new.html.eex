@@ -18,6 +18,12 @@
     </div>
   </div>
 
+  <div class="field">
+    <div class="control">
+      <%= text_input f, :in_reply_to, class: "input", placeholder: "In Reply To" %>
+    </div>
+  </div>
+
   <%= submit "Submit", class: "button is-primary" %>
 
 <% end %>

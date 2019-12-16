@@ -8,8 +8,8 @@ defmodule Clouds.Repo.Migrations.CreateObjects do
       add :content_sanitized, :text
 
       add :type, :string
-      add :attributedTo, :string
-      add :inReplyTo, :string
+      add :attributed_to, :string
+      add :in_reply_to, :string
       add :to, {:array, :string}
 
       add :activity_id, references "activities"
