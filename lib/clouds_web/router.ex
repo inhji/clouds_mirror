@@ -42,8 +42,8 @@ defmodule CloudsWeb.Router do
 
     get "/", PageController, :index
     get "/actor", UserController, :actor
-    get "/inbox", UserController, :inbox
-    get "/outbox", UserController, :outbox
+    get "/inbox", UserController, :get_inbox
+    get "/outbox", UserController, :get_outbox
 
     resources "/posts", PostController, only: [:show]
   end

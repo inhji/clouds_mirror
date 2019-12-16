@@ -8,6 +8,13 @@ defmodule Clouds.Objects do
   alias Clouds.Repo
   alias Clouds.Objects.Object
 
+  def list_objects() do
+    Object
+    |> order_by(desc: :inserted_at)
+    |> Repo.all()
+    |> Repo.preload(:activity)
+  end
+
   def create_object(attrs \\ {}) do
     %Object{}
     |> Object.changeset(attrs)
