@@ -42,6 +42,7 @@ defmodule CloudsWeb do
       import CloudsWeb.ErrorHelpers
       import CloudsWeb.Gettext
       alias CloudsWeb.Router.Helpers, as: Routes
+      alias CloudsWeb.LayoutView
     end
   end
 
