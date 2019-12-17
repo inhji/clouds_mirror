@@ -26,4 +26,9 @@ defmodule Clouds.Objects do
     |> Repo.get(id)
     |> Repo.preload(:activity)
   end
+
+  def change_object(attrs \\ %{}) do
+    %Object{}
+    |> Object.changeset(attrs)
+  end
 end

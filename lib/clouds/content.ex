@@ -19,26 +19,23 @@ defmodule Clouds.Content do
 
   def create_note(content_html, receipients) do
     Repo.transaction(fn ->
-      {:ok, activity} =
-        Clouds.Activities.create_activity(%{
-          type: "Create",
-          to: receipients,
-          actor: User.actor_url()
-        })
+      attrs = %{
+        type: "Create",
+        to: receipients,
+        actor: User.actor_url()
+      }
 
-      result =
-        Clouds.Objects.create_object(%{
-          attributed_to: User.actor_url(),
-          type: "Note",
-          content: content_html,
-          to: receipients,
-          activity_id: activity.id
-        })
-
-      case result do
-        {:ok, note} ->
-          {:ok, note}
-
+      with {:ok, activity} <- Clouds.Activities.create_activity(attrs),
+           {:ok, note} <-
+             Clouds.Objects.create_object(%{
+               attributed_to: User.actor_url(),
+               type: "Note",
+               content: content_html,
+               to: receipients,
+               activity_id: activity.id
+             }) do
+        {:ok, note}
+      else
         {:error, changeset} ->
           Repo.rollback(changeset)
       end
