@@ -20,7 +20,7 @@ defmodule Clouds.MixProject do
   def application do
     [
       mod: {Clouds.Application, []},
-      extra_applications: [:logger, :runtime_tools, :tzdata]
+      extra_applications: [:logger, :runtime_tools, :tzdata, :que]
     ]
   end
 
@@ -46,6 +46,7 @@ defmodule Clouds.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
       {:pow, "~> 1.0.15"},
+      {:que, "~> 0.10.1"},
       {:rsa_ex, "~> 0.4"},
       {:timex, "~> 3.6"},
       {:tzdata, "~> 1.0.1"}
