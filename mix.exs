@@ -37,6 +37,7 @@ defmodule Clouds.MixProject do
       {:ecto_sql, "~> 3.1"},
       {:fast_sanitize, "~> 0.1.6"},
       {:gettext, "~> 0.11"},
+      {:httpoison, "~> 1.6"},
       {:jason, "~> 1.0"},
       {:phoenix, "~> 1.4.11"},
       {:phoenix_ecto, "~> 4.0"},
